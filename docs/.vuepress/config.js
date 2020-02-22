@@ -2,7 +2,7 @@ module.exports = {
     title: 'Media24 Code Guidelines',
     description: 'The code style guidelines used by the Media24 company',
     themeConfig: {
-      logo: '/images/media24.svg',
+      logo: '/images/media24.png',
       nav: [
         { text: 'Home', link: '/' },
         { text: 'PHP & Laravel', link: '/php/' },
