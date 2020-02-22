@@ -263,11 +263,86 @@ TODO
 
 ### Routing 
 
-TODO
+Use plural names for API routes and singular for parameters
+
+:thumbsup: 
+
+```php
+Route::get('articles/{article}', [ArticleController::class, 'show']);
+``` 
+
+:thumbsdown:
+
+```php
+Route::get('article/{article}', [ArticleController::class, 'show']);
+``` 
+
+Use fully qualified class name resolutions (`::class`) when writing routes instead of strings with the default namespace
+
+:thumbsup: 
+
+```php
+use App\Http\Controllers\Api\Playlists\PlaylistController;
+use App\Http\Controllers\Api\Playlists\PlaylistMemberController;
+
+Route::apiResource('playlists', PlaylistController::class);
+Route::put('/playlists/{id}/members', [PlaylistMemberController::class, 'show']);
+```
+
+:thumbsdown:
+
+```php
+Route::apiResource('playlists', 'Api\Playlists\PlaylistController');
+Route::put('/playlists/{id}/members', 'Api\Playlists\PlaylistController@show');
+``` 
 
 ### Controllers
 
-TODO 
+Use singular naming conventions when writing controller names 
+
+:thumbsup: 
+
+```php
+class ArticleController
+{
+    ...
+}
+```
+
+:thumbsdown:
+
+```php
+class ArticlesController
+{
+
+}
+```
+
+Make use of `__invoke` when writing single action controllers. 
+
+:thumbsup: 
+
+```php
+class ArticleMainImageController
+{
+    public function __invoke()
+    {
+        // 
+    }
+}
+```
+
+:thumbsdown:
+
+```php
+class ArticleMainImageController
+{
+    public function show()
+    {
+        // 
+    }
+}
+```
 
 ## Views
 
