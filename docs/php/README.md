@@ -6,12 +6,12 @@ First and foremost, be sure your code style follows [PSR-1](http://www.php-fig.o
 
 ## Comments
 
-Mostly, keep from writing comments unless they are absolutely needed to explain some code functionality. 
+Mostly, keep from writing comments unless they are absolutely needed to explain some code functionality.
 
 :thumbsup:
 
 ```php
-class Article 
+class Article
 {
     public function getSurnameAttribute()
     {
@@ -30,17 +30,17 @@ class Article
     {
         // Split the name by the space character
         $splitName = explode(' ', $this->name);
-        // Take the last element of the array and return it 
+        // Take the last element of the array and return it
         return $splitName[count($splitName) - 1];
     }
 }
 ```
 
-## Docblocks 
+## Docblocks
 
 Do not write dockblocks on methods if you can typehint them (unless you need a description).
 
-:thumbsup: 
+:thumbsup:
 
 ```php
 class Youtube
@@ -52,14 +52,14 @@ class Youtube
 }
 ```
 
-:thumbsdown: 
+:thumbsdown:
 
 ```php
-class Youtube 
+class Youtube
 {
     /**
      * Return the Youtube ID from a passed in URL
-     * 
+     *
      * @param string $url
      * @return string
      **/
@@ -86,11 +86,11 @@ $url = "https://www.youtube.com/watch?v={$id}?playlist={$playlistId}";
 $url = 'https://www.youtube.com/watch?v=' . $id . '?playlist=' . $playlistId;
 ```
 
-If it is absolutely not possible to use interpolation, it is perfectly ok to use concatenation :ok_hand:. 
+If it is absolutely not possible to use interpolation, it is perfectly ok to use concatenation :ok_hand:.
 
 ## Ternary operators
 
-TODO 
+TODO
 
 ## If statements
 
@@ -98,7 +98,7 @@ TODO
 
 Always use curly brackets.
 
-:thumbsup: 
+:thumbsup:
 
 ```php
 if ($condition) {
@@ -218,7 +218,7 @@ public function index(Request $request)
 }
 ```
 
-No extra lines between `{}` brackets. Unneeded and can lead to the code looking much bigger than it is. 
+No extra lines between `{}` brackets. Unneeded and can lead to the code looking much bigger than it is.
 
 :thumbsup:
 
@@ -255,52 +255,144 @@ return [
 ];
 ```
 
-## Laravel specific 
+## Laravel specific
 
 ### Artisan commands
 
 TODO
 
-### Routing 
+### Routing
 
 TODO
 
 ### Controllers
 
-TODO 
+TODO
 
 ## Views
 
-TODO 
+Use snake-case for view files.
+
+:thumbsup:
+
+```
+    resources/
+        views/
+            simple-pagination.blade.php
+```
 
 ## Validation
 
-TODO 
+Always prefer using request validation helpers, unless you really have to use the validator instance.
 
-## Blade templates
+:thumbsup:
 
-TODO 
+```php
+$request->validate([
+    'client_id' => ['required', 'exists:clients,id'],
+    'name'      => ['required', 'min:2', Rule::unique(Branch::class)->where('client_id', $request->input('client_id'))],
+    'address'   => ['nullable', 'min:2'],
+    'city'      => ['nullable', 'min:2'],
+    'country'   => ['nullable', 'min:2'],
+    'phone'     => ['nullable', 'min:2'],
+    'email'     => ['nullable', 'min:2'],
+]);
+```
 
-## Authorization
+:thumbsdown:
 
-TODO 
+```php
+$validator = Validator::make($request->all(), [
+    'client_id' => ['required', 'exists:clients,id'],
+    'name'      => ['required', 'min:2', Rule::unique(Branch::class)->where('client_id', $request->input('client_id'))],
+    'address'   => ['nullable', 'min:2'],
+    'city'      => ['nullable', 'min:2'],
+    'country'   => ['nullable', 'min:2'],
+    'phone'     => ['nullable', 'min:2'],
+    'email'     => ['nullable', 'min:2'],
+]);
 
-## Translations
+if ($validator->fails()) {
+    //
+}
+```
 
-TODO 
+```php
+Validator::make($request->all(), [
+    'client_id' => ['required', 'exists:clients,id'],
+    'name'      => ['required', 'min:2', Rule::unique(Branch::class)->where('client_id', $request->input('client_id'))],
+    'address'   => ['nullable', 'min:2'],
+    'city'      => ['nullable', 'min:2'],
+    'country'   => ['nullable', 'min:2'],
+    'phone'     => ['nullable', 'min:2'],
+    'email'     => ['nullable', 'min:2'],
+])->validate();
+```
+
+Always use arrays when declaring validation rules. This prevents mixing styles when declaring custom validation rules, as shown below.
+
+:thumbsup:
+
+```php
+$request->validate([
+    'client_id' => ['required', 'exists:clients,id'],
+    'name'      => ['required', 'min:2', Rule::unique(Branch::class)->where('client_id', $request->input('client_id'))],
+    'address'   => ['nullable', 'min:2'],
+    'city'      => ['nullable', 'min:2'],
+    'country'   => ['nullable', 'min:2'],
+    'phone'     => ['nullable', 'min:2'],
+    'email'     => ['nullable', 'min:2'],
+]);
+```
+
+:thumbsdown:
+
+```php
+$request->validate([
+    'client_id' => 'required|exists:clients,id',
+    'name'      => ['required', 'min:2', Rule::unique(Branch::class)->where('client_id', $request->input('client_id'))],
+    'address'   => 'nullable|min:2',
+    'city'      => 'nullable|min:2',
+    'country'   => 'nullable|min:2',
+    'phone'     => 'nullable|min:2',
+    'email'     => 'nullable|min:2',
+]);
+```
 
 ## Naming conventions
 
 ### Controllers
 
+Keep controller names in their singular form with the `Controller` suffix.
+
+:thumbsup:
+
+`ArticleController.php`
+
+:thumbsdown:
+
+`ArticlesController.php`
+
 ### Resources
 
-### Jobs
+As with controllers, keep resource names in their singular form with no suffix.
 
-### Events
+:thumbsup:
 
-### Listeners
+`Playlist.php`
+
+:thumbsdown:
+
+`Playlists.php` or `PlaylistResource.php` or `PlaylistsResource.php`
 
 ### Commands
 
-### Mailables
+Command names should describe what they are doing and have no suffix.
+
+:thumbsup:
+
+`FilesystemSpaceCheck.php`
+
+:thumbsdown:
+
+`FilesystemSpaceCheckCommand.php`
