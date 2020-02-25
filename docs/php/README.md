@@ -1,8 +1,47 @@
 # General PHP rules
 
+## PHPCS
+
+Create a `.phpcs.xml` file in the root of your project directory.
+
+```xml
+<?xml version="1.0"?>
+<ruleset name="PHP_CodeSniffer">
+    <description>Media24 coding standard.</description>
+    <rule ref="PSR12"/>
+
+    <file>app</file>
+    <file>bootstrap</file>
+    <file>config</file>
+    <file>database</file>
+    <file>resources</file>
+    <file>routes</file>
+    <file>tests</file>
+
+    <exclude-pattern>bootstrap/cache/*</exclude-pattern>
+    <exclude-pattern>bootstrap/autoload.php</exclude-pattern>
+    <exclude-pattern>*/migrations/*</exclude-pattern>
+    <exclude-pattern>*/seeds/*</exclude-pattern>
+    <exclude-pattern>*.blade.php</exclude-pattern>
+    <exclude-pattern>*.js</exclude-pattern>
+    <exclude-pattern>tests/report/*</exclude-pattern>
+
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="200" />
+            <property name="absoluteLineLimit" value="250" />
+        </properties>
+    </rule>
+
+    <!-- Show progression -->
+    <arg value="p"/>
+    <arg name="colors"/>
+</ruleset>
+```
+
 ## Code styles
 
-First and foremost, be sure your code style follows [PSR-1](http://www.php-fig.org/psr/psr-1/), [PSR-2](http://www.php-fig.org/psr/psr-2) and [PSR-12](http://www.php-fig.org/psr/psr-12/).
+First and foremost, be sure your code style follows [PSR-12](http://www.php-fig.org/psr/psr-12/).
 
 ## Comments
 
@@ -271,7 +310,7 @@ TODO
 
 ## Views
 
-Use snake-case for view files.
+Use kebab-case for view files.
 
 :thumbsup:
 
