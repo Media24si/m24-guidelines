@@ -1,46 +1,5 @@
 # JavaScript style guide
 
-## ESLint
-
-Create a `.eslintrc.json` file in the root of your project directory.
-
-```json
-{
-  "env": {
-    "browser": true,
-    "es6": true,
-    "node": true
-  },
-  "extends": [
-    "standard",
-    "eslint:recommended",
-    "plugin:vue/recommended"
-  ],
-  "globals": {
-    "RESOURCE_ID": "readonly"
-  },
-  "parserOptions": {
-    "ecmaVersion": 2015,
-    "sourceType": "module"
-  },
-  "rules": {
-    "vue/html-closing-bracket-newline": ["error", {
-      "singleline": "never",
-      "multiline": "never"
-    }],
-    "vue/max-attributes-per-line": ["error", {
-      "singleline": 1,
-      "multiline": {
-        "max": 1,
-        "allowFirstLine": true
-      }
-    }]
-  }
-}
-```
-
-Run `npm install --save-dev eslint eslint-plugin-vue standard`.
-
 ## Code Style
 
 ### Semicolons
@@ -161,3 +120,7 @@ Component names should be `CamelCase`-
 ### Mixins
 
 Mixin names should be `kebab-case`
+
+## ESLint
+
+The ESLint file is available [here](/.eslintrc.json), if you for any reason need only this specific file.

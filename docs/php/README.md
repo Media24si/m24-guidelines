@@ -1,44 +1,5 @@
 # General PHP rules
 
-## PHPCS
-
-Create a `.phpcs.xml` file in the root of your project directory.
-
-```xml
-<?xml version="1.0"?>
-<ruleset name="PHP_CodeSniffer">
-    <description>Media24 coding standard.</description>
-    <rule ref="PSR12"/>
-
-    <file>app</file>
-    <file>bootstrap</file>
-    <file>config</file>
-    <file>database</file>
-    <file>resources</file>
-    <file>routes</file>
-    <file>tests</file>
-
-    <exclude-pattern>bootstrap/cache/*</exclude-pattern>
-    <exclude-pattern>bootstrap/autoload.php</exclude-pattern>
-    <exclude-pattern>*/migrations/*</exclude-pattern>
-    <exclude-pattern>*/seeds/*</exclude-pattern>
-    <exclude-pattern>*.blade.php</exclude-pattern>
-    <exclude-pattern>*.js</exclude-pattern>
-    <exclude-pattern>tests/report/*</exclude-pattern>
-
-    <rule ref="Generic.Files.LineLength">
-        <properties>
-            <property name="lineLimit" value="200" />
-            <property name="absoluteLineLimit" value="250" />
-        </properties>
-    </rule>
-
-    <!-- Show progression -->
-    <arg value="p"/>
-    <arg name="colors"/>
-</ruleset>
-```
-
 ## Code styles
 
 First and foremost, be sure your code style follows [PSR-12](http://www.php-fig.org/psr/psr-12/).
@@ -400,38 +361,28 @@ $request->validate([
 
 ## Naming conventions
 
-### Controllers
+| Type            | Rule                      | Suffix                        | Example  |
+| --------------- |---------------------------|-------------------------------| ---------|
+| Class           | PascalCase                |                               | *MyClass.php*              |
+| Controller      | singular                  | Controller                    | *PostController.php*       |
+| Model           | singular,                 |                               | *Post.php*                  |
+| Table           | plural, snake_case        |                               | *user_posts*                    |
+| Columns         | singular, snake_case      |                               | *created_at, user_id*            |
+| Route           | plural                    |                               | *users/{username}/ban*          |
+| Named route     | dot-notation, snake-case  |                               | *settings.team* |
+| Method          | camelCase                 |                               | *getUsersPosts()*           |
+| Variable        | camelCase                 |                               | *$post*                     |
+| View            | kebab-case                |                               | *session-expired.blade.php* |
+| Config          | kebab-case                |                               | *services-stripe.php*       |
+| Event           | *subject for event*       | *a verb*                      | *TeamDeleted.php*      |
+| Provider        |                           | Provider                      | *AppServiceProvider.php* |
+| Command         |                           |                               | *Install.php* |
+| Request         |                           | Request                       | *CreateTokenRequest.php* |
+| Listener        | *descriptive*             | Notification?                 | *UpdateTrialEndingDate.php, SendShipmentNotification.php* |
+| Repository      |                           | Repository                    | *UserRepository.php* |
+| Resource        | singular                  |                               | *User.php* |
+| Helper          | snake_case                |                               | *array_has()* |
 
-Keep controller names in their singular form with the `Controller` suffix.
+## PHPCS
 
-:thumbsup:
-
-`ArticleController.php`
-
-:thumbsdown:
-
-`ArticlesController.php`
-
-### Resources
-
-As with controllers, keep resource names in their singular form with no suffix.
-
-:thumbsup:
-
-`Playlist.php`
-
-:thumbsdown:
-
-`Playlists.php` or `PlaylistResource.php` or `PlaylistsResource.php`
-
-### Commands
-
-Command names should describe what they are doing and have no suffix.
-
-:thumbsup:
-
-`FilesystemSpaceCheck.php`
-
-:thumbsdown:
-
-`FilesystemSpaceCheckCommand.php`
+The PHPCS file is available [here](/.phpcs.xml), if you for any reason need only this specific file.
