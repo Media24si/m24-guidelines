@@ -123,4 +123,4 @@ Mixin names should be `kebab-case`
 
 ## ESLint
 
-The ESLint file is available [here](/.eslintrc.json), if you for any reason need only this specific file.
+The ESLint file is available [here](/eslintrc.json), if you for any reason need only this specific file.

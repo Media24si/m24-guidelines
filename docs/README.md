@@ -10,4 +10,4 @@ footer: Copyright © Media24
 
 # First step
 
-Before getting started download this [script](/.setup.sh) into your project repository and run it. This will download the appropriate eslint and phpcs files and prepare your directory accordingly.
+Before getting started download this [script](/setup.sh) into your project repository and run it. This will download the appropriate eslint and phpcs files and prepare your directory accordingly.
