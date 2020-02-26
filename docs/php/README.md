@@ -6,6 +6,8 @@ First and foremost, be sure your code style follows [PSR-12](http://www.php-fig.
 
 ## Comments
 
+![Comments](./comments.jpg)
+
 Mostly, keep from writing comments unless they are absolutely needed to explain some code functionality.
 
 :thumbsup:
