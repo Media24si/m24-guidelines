@@ -115,5 +115,3 @@ Use the linter to help formatting your vue files with the help of `eslint-plugin
 ## ESLint
 
 The ESLint file is available [here](/eslintrc.json), if you for any reason need only this specific file.
-
-<<< @/eslintrc.json

@@ -386,5 +386,3 @@ $request->validate([
 ## PHPCS
 
 The PHPCS file is available [here](/phpcs.xml), if you for any reason need only this specific file.
-
-<<< @/phpcs.xml
