@@ -97,10 +97,6 @@ axios.get('api-endpoint')
   })
 ```
 
-### Element ID naming
-
-Element id's should be written in `kebab-case`.
-
 ## Vue specific
 
 ### Vue templates
@@ -109,18 +105,15 @@ Use the linter to help formatting your vue files with the help of `eslint-plugin
 
 ## Vue naming conventions
 
-### Variables
-
-Variable names should be `snakeCase`.
-
-### Components
-
-Component names should be `CamelCase`-
-
-### Mixins
-
-Mixin names should be `kebab-case`
+| Type            | Rule                      | Directory                     | Example  |
+| --------------- |---------------------------|-------------------------------| ---------|
+| Component       | PascalCase                | /components                   | *ImagePreview.vue*              |
+| Mixin           | plural, kebab-case        | /mixins                       | *custom-templates.js*       |
+| Directive       | singular, kebab-case      | /directives                   | *confirmation.js*                    |
+| Script asset    | kebab-case                |                               | *storage.js*            |
 
 ## ESLint
 
 The ESLint file is available [here](/eslintrc.json), if you for any reason need only this specific file.
+
+<<< @/eslintrc.json
