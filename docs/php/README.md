@@ -2,16 +2,18 @@
 
 ## Code styles
 
-First and foremost, be sure your code style follows [PSR-1](http://www.php-fig.org/psr/psr-1/), [PSR-2](http://www.php-fig.org/psr/psr-2) and [PSR-12](http://www.php-fig.org/psr/psr-12/).
+First and foremost, be sure your code style follows [PSR-12](http://www.php-fig.org/psr/psr-12/).
 
 ## Comments
 
-Mostly, keep from writing comments unless they are absolutely needed to explain some code functionality. 
+![Comments](./comments.jpg)
+
+Mostly, keep from writing comments unless they are absolutely needed to explain some code functionality.
 
 :thumbsup:
 
 ```php
-class Article 
+class Article
 {
     public function getSurnameAttribute()
     {
@@ -30,17 +32,17 @@ class Article
     {
         // Split the name by the space character
         $splitName = explode(' ', $this->name);
-        // Take the last element of the array and return it 
+        // Take the last element of the array and return it
         return $splitName[count($splitName) - 1];
     }
 }
 ```
 
-## Docblocks 
+## Docblocks
 
 Do not write dockblocks on methods if you can typehint them (unless you need a description).
 
-:thumbsup: 
+:thumbsup:
 
 ```php
 class Youtube
@@ -52,14 +54,14 @@ class Youtube
 }
 ```
 
-:thumbsdown: 
+:thumbsdown:
 
 ```php
-class Youtube 
+class Youtube
 {
     /**
      * Return the Youtube ID from a passed in URL
-     * 
+     *
      * @param string $url
      * @return string
      **/
@@ -86,11 +88,11 @@ $url = "https://www.youtube.com/watch?v={$id}?playlist={$playlistId}";
 $url = 'https://www.youtube.com/watch?v=' . $id . '?playlist=' . $playlistId;
 ```
 
-If it is absolutely not possible to use interpolation, it is perfectly ok to use concatenation :ok_hand:. 
+If it is absolutely not possible to use interpolation, it is perfectly ok to use concatenation :ok_hand:.
 
 ## Ternary operators
 
-TODO 
+TODO
 
 ## If statements
 
@@ -98,7 +100,7 @@ TODO
 
 Always use curly brackets.
 
-:thumbsup: 
+:thumbsup:
 
 ```php
 if ($condition) {
@@ -218,7 +220,7 @@ public function index(Request $request)
 }
 ```
 
-No extra lines between `{}` brackets. Unneeded and can lead to the code looking much bigger than it is. 
+No extra lines between `{}` brackets. Unneeded and can lead to the code looking much bigger than it is.
 
 :thumbsup:
 
@@ -255,13 +257,9 @@ return [
 ];
 ```
 
-## Laravel specific 
+## Laravel specific
 
-### Artisan commands
-
-TODO
-
-### Routing 
+### Routing
 
 Use plural names for API routes and singular for parameters
 
@@ -346,36 +344,118 @@ class ArticleMainImageController
 
 ## Views
 
-TODO 
+Use kebab-case for view files.
+
+:thumbsup:
+
+```
+    resources/
+        views/
+            simple-pagination.blade.php
+```
 
 ## Validation
 
-TODO 
+Always prefer using request validation helpers, unless you really have to use the validator instance.
 
-## Blade templates
+:thumbsup:
 
-TODO 
+```php
+$request->validate([
+    'client_id' => ['required', 'exists:clients,id'],
+    'name'      => ['required', 'min:2', Rule::unique(Branch::class)->where('client_id', $request->input('client_id'))],
+    'address'   => ['nullable', 'min:2'],
+    'city'      => ['nullable', 'min:2'],
+    'country'   => ['nullable', 'min:2'],
+    'phone'     => ['nullable', 'min:2'],
+    'email'     => ['nullable', 'min:2'],
+]);
+```
 
-## Authorization
+:thumbsdown:
 
-TODO 
+```php
+$validator = Validator::make($request->all(), [
+    'client_id' => ['required', 'exists:clients,id'],
+    'name'      => ['required', 'min:2', Rule::unique(Branch::class)->where('client_id', $request->input('client_id'))],
+    'address'   => ['nullable', 'min:2'],
+    'city'      => ['nullable', 'min:2'],
+    'country'   => ['nullable', 'min:2'],
+    'phone'     => ['nullable', 'min:2'],
+    'email'     => ['nullable', 'min:2'],
+]);
 
-## Translations
+if ($validator->fails()) {
+    //
+}
+```
 
-TODO 
+```php
+Validator::make($request->all(), [
+    'client_id' => ['required', 'exists:clients,id'],
+    'name'      => ['required', 'min:2', Rule::unique(Branch::class)->where('client_id', $request->input('client_id'))],
+    'address'   => ['nullable', 'min:2'],
+    'city'      => ['nullable', 'min:2'],
+    'country'   => ['nullable', 'min:2'],
+    'phone'     => ['nullable', 'min:2'],
+    'email'     => ['nullable', 'min:2'],
+])->validate();
+```
+
+Always use arrays when declaring validation rules. This prevents mixing styles when declaring custom validation rules, as shown below.
+
+:thumbsup:
+
+```php
+$request->validate([
+    'client_id' => ['required', 'exists:clients,id'],
+    'name'      => ['required', 'min:2', Rule::unique(Branch::class)->where('client_id', $request->input('client_id'))],
+    'address'   => ['nullable', 'min:2'],
+    'city'      => ['nullable', 'min:2'],
+    'country'   => ['nullable', 'min:2'],
+    'phone'     => ['nullable', 'min:2'],
+    'email'     => ['nullable', 'min:2'],
+]);
+```
+
+:thumbsdown:
+
+```php
+$request->validate([
+    'client_id' => 'required|exists:clients,id',
+    'name'      => ['required', 'min:2', Rule::unique(Branch::class)->where('client_id', $request->input('client_id'))],
+    'address'   => 'nullable|min:2',
+    'city'      => 'nullable|min:2',
+    'country'   => 'nullable|min:2',
+    'phone'     => 'nullable|min:2',
+    'email'     => 'nullable|min:2',
+]);
+```
 
 ## Naming conventions
 
-### Controllers
+| Type            | Rule                      | Suffix                        | Example  |
+| --------------- |---------------------------|-------------------------------| ---------|
+| Class           | PascalCase                |                               | *MyClass.php*              |
+| Controller      | singular                  | Controller                    | *PostController.php*       |
+| Model           | singular,                 |                               | *Post.php*                  |
+| Table           | plural, snake_case        |                               | *user_posts*                    |
+| Columns         | singular, snake_case      |                               | *created_at, user_id*            |
+| Route           | plural                    |                               | *users/{username}/ban*          |
+| Named route     | dot-notation, snake-case  |                               | *settings.team* |
+| Method          | camelCase                 |                               | *getUsersPosts()*           |
+| Variable        | camelCase                 |                               | *$post*                     |
+| View            | kebab-case                |                               | *session-expired.blade.php* |
+| Config          | kebab-case                |                               | *services-stripe.php*       |
+| Event           | *subject for event*       | *a verb*                      | *TeamDeleted.php*      |
+| Provider        |                           | Provider                      | *AppServiceProvider.php* |
+| Command         |                           |                               | *Install.php* |
+| Request         |                           | Request                       | *CreateTokenRequest.php* |
+| Listener        | *descriptive*             | Notification?                 | *UpdateTrialEndingDate.php, SendShipmentNotification.php* |
+| Repository      |                           | Repository                    | *UserRepository.php* |
+| Resource        | singular                  |                               | *User.php* |
+| Helper          | snake_case                |                               | *array_has()* |
 
-### Resources
+## PHPCS
 
-### Jobs
-
-### Events
-
-### Listeners
-
-### Commands
-
-### Mailables
+The PHPCS file is available [here](/phpcs.xml), if you for any reason need only this specific file.
