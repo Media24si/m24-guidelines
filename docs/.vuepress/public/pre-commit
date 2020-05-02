@@ -37,4 +37,22 @@ then
 	fi
 fi
 
+JS_FILES=$(git diff --cached --name-only --diff-filter=ACMR HEAD | grep -i -E ".(js|vue)$")
+
+for FILE in $JS_FILES
+do
+	FILES="$FILES $PROJECT/$FILE"
+done
+
+if [ "$FILES" != "" ]
+then
+	echo "Running EsLint..."
+	npx eslint $FILES
+	if [ $? != 0 ]
+	then
+		echo "Fix the error before commit."
+		exit 1
+	fi
+fi
+
 exit $?
