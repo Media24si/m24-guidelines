@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CSS Code style | Media24 Code Guidelines</title>
+    <meta name="generator" content="VuePress 1.5.1">
+    
+    <meta name="description" content="The code style guidelines used by the Media24 company">
+    <link rel="preload" href="/assets/css/0.styles.cbac760d.css" as="style"><link rel="preload" href="/assets/js/app.3d9e6318.js" as="script"><link rel="preload" href="/assets/js/2.8f2ae9e5.js" as="script"><link rel="preload" href="/assets/js/7.6c882d2f.js" as="script"><link rel="prefetch" href="/assets/js/3.5164b861.js"><link rel="prefetch" href="/assets/js/4.a862e0ae.js"><link rel="prefetch" href="/assets/js/5.af1a55c3.js"><link rel="prefetch" href="/assets/js/6.2e90c9ed.js"><link rel="prefetch" href="/assets/js/8.681d2443.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.cbac760d.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">Media24 Code Guidelines</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><a href="/php/" class="nav-link">
+  PHP &amp; Laravel
+</a></div><div class="nav-item"><a href="/javascript/" class="nav-link">
+  Javascript
+</a></div><div class="nav-item"><a href="/css/" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  CSS
+</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><a href="/php/" class="nav-link">
+  PHP &amp; Laravel
+</a></div><div class="nav-item"><a href="/javascript/" class="nav-link">
+  Javascript
+</a></div><div class="nav-item"><a href="/css/" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  CSS
+</a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>CSS Code style</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/css/#file-structure" class="sidebar-link">File structure</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/css/#imports" class="sidebar-link">Imports</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/css/#fonts" class="sidebar-link">Fonts</a><ul class="sidebar-sub-headers"></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="css-code-style"><a href="#css-code-style" class="header-anchor">#</a> CSS Code style</h1> <h2 id="file-structure"><a href="#file-structure" class="header-anchor">#</a> File structure</h2> <p>Use a components folder to store separate smaller parts of your styles.</p> <div class="language- extra-class"><pre class="language-text"><code>  /resources
+    /scss
+      /components
+        ...
+</code></pre></div><p>Component names should be prefixed with an underscore <code>_</code>.</p> <div class="language- extra-class"><pre class="language-text"><code>    /components
+      _form.scss
+      _notification.scss
+      ...
+</code></pre></div><h2 id="imports"><a href="#imports" class="header-anchor">#</a> Imports</h2> <p>Import components without the underscore prefix.</p> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token keyword">@import</span> <span class="token string">'./components/form'</span><span class="token punctuation">;</span>
+<span class="token keyword">@import</span> <span class="token string">'./components/notification'</span><span class="token punctuation">;</span>
+</code></pre></div><h2 id="fonts"><a href="#fonts" class="header-anchor">#</a> Fonts</h2> <p>If you're including fonts from other external sites like GoogleFonts, always include them in the header instead of including them in the style file.</p> <p>👍</p> <div class="language-html extra-class"><pre class="language-html"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&amp;display=swap&amp;subset=latin-ext<span class="token punctuation">&quot;</span></span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>stylesheet<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><p>👎</p> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token keyword">@import</span> <span class="token url">url</span><span class="token punctuation">(</span><span class="token string">'https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,500,600,700&amp;subset=latin-ext'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.3d9e6318.js" defer></script><script src="/assets/js/2.8f2ae9e5.js" defer></script><script src="/assets/js/7.6c882d2f.js" defer></script>
+  </body>
+</html>
